@@ -1,0 +1,442 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="KriyaID.Site" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Kriya ID | Bespoke Interior Architecture & Living</title>
+
+    <!-- Google Fonts: Playfair Display & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <!-- Luma Home & Nestora Living Luxury Stylesheet -->
+    <link href="/Content/css/site.css" rel="stylesheet" type="text/css" />
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Top Warm Accent Bar (As seen in Reference Image 1) -->
+        <div class="luma-top-accent"></div>
+
+        <!-- Main Luxury Header Navigation (Luma Home & Nestora Living Aesthetic) -->
+        <header class="luma-header sticky-top">
+            <div class="container-fluid px-lg-4 px-3">
+                <div class="luma-header-inner">
+                    <!-- Left Group: Architectural House Icon Logo + Nav Menu (Directly Next to Logo Like Reference 1) -->
+                    <div class="luma-left-group">
+                        <a href='<%= ResolveUrl("~/Home.aspx") %>' class="luma-brand text-decoration-none" title="Luma Home">
+                            <svg class="luma-brand-icon" viewBox="0 0 36 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 14L18 3L32 14V29H4V14Z" />
+                                <path d="M12 29V18L18 13L24 18V29" />
+                            </svg>
+                            <div class="luma-brand-text">
+                                <span class="luma-brand-title">LUMA HOME</span>
+                                <span class="luma-brand-subtitle">DESIGN &middot; DECOR &middot; LIVE BETTER</span>
+                            </div>
+                        </a>
+
+                        <!-- Navigation Links with Dropdowns directly beneath each category -->
+                        <nav class="luma-nav-container d-none d-lg-block">
+                            <ul class="luma-nav-menu">
+                                <!-- 1. Home (In place of "Shop All", with its subcategories underneath!) -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Home.aspx") %>' class='luma-nav-link <%= Request.Url.AbsolutePath.EndsWith("Home.aspx", StringComparison.OrdinalIgnoreCase) || Request.Url.AbsolutePath.EndsWith("/Default.aspx", StringComparison.OrdinalIgnoreCase) || Request.Url.AbsolutePath.EndsWith("/") ? "active" : "" %>'>
+                                        Home
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx") %>'>All Products</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=new") %>'>New Arrivals</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=bestseller") %>'>Best Sellers</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=trending") %>'>Trending Products</a></li>
+                                        <li><hr class="dropdown-divider my-1"></li>
+                                        <li><a class="luma-dropdown-item sale-highlight" href='<%= ResolveUrl("~/Products.aspx?filter=sale") %>'>Sale</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 2. Furniture -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Products.aspx?cat=Furniture") %>' class='luma-nav-link <%= Request.QueryString["cat"] == "Furniture" || Request.QueryString["cat"] == "1" || Request.QueryString["q"] == "furniture" ? "active" : "" %>'>
+                                        Furniture
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=sofa") %>'>Sofas</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=bed") %>'>Beds</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=wardrobe") %>'>Wardrobes</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=table") %>'>Tables</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=chair") %>'>Chairs</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=tv+unit") %>'>TV Units</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=bookshelf") %>'>Bookshelves</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 3. Lighting -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Products.aspx?cat=Lighting") %>' class='luma-nav-link <%= Request.QueryString["cat"] == "Lighting" || Request.QueryString["cat"] == "4" || Request.QueryString["q"] == "lighting" ? "active" : "" %>'>
+                                        Lighting
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=ceiling+light") %>'>Ceiling Lights</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=pendant+light") %>'>Pendant Lights</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=table+lamp") %>'>Table Lamps</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=floor+lamp") %>'>Floor Lamps</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=wall+light") %>'>Wall Lights</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 4. Decor -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Products.aspx?cat=Art+%26+Decor") %>' class='luma-nav-link <%= Request.QueryString["cat"] == "Decor" || Request.QueryString["cat"] == "5" || Request.QueryString["q"] == "decor" ? "active" : "" %>'>
+                                        Decor
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=wall+art") %>'>Wall Art</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=vase") %>'>Vases</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=mirror") %>'>Mirrors</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=clock") %>'>Clocks</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=plant") %>'>Plants</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=decorative") %>'>Decorative Items</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 5. Rugs -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Products.aspx?q=rug") %>' class='luma-nav-link <%= Request.QueryString["q"] == "rug" || Request.QueryString["cat"] == "Rugs" ? "active" : "" %>'>
+                                        Rugs
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=living+room+rug") %>'>Living Room Rugs</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=bedroom+rug") %>'>Bedroom Rugs</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=round+rug") %>'>Round Rugs</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=carpet") %>'>Carpet</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?q=door+mat") %>'>Door Mats</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 6. Sale -->
+                                <li class="luma-nav-item luma-dropdown">
+                                    <a href='<%= ResolveUrl("~/Products.aspx?filter=sale") %>' class='luma-nav-link <%= Request.QueryString["filter"] == "sale" || Request.QueryString["filter"] == "discount" ? "active" : "" %>'>
+                                        Sale
+                                    </a>
+                                    <ul class="luma-dropdown-menu">
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=offers") %>'>Special Offers</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=discount") %>'>Discount Products</a></li>
+                                        <li><a class="luma-dropdown-item" href='<%= ResolveUrl("~/Products.aspx?filter=clearance") %>'>Clearance Sale</a></li>
+                                        <li><a class="luma-dropdown-item sale-highlight" href='<%= ResolveUrl("~/Products.aspx?filter=deals") %>'>Best Deals</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Right Group: Search Pill + Action Icons + Mobile Toggler -->
+                    <div class="luma-right-group">
+                        <!-- Pill Search Bar (Reference Image 1: "Search furniture & decor") -->
+                        <div class="luma-search-container d-none d-lg-block">
+                            <asp:Panel runat="server" DefaultButton="btnNavSearch" CssClass="m-0 p-0">
+                                <div class="luma-search-pill">
+                                    <asp:LinkButton ID="btnNavSearch" runat="server" CssClass="luma-search-icon-btn" OnClick="btnNavSearch_Click" CausesValidation="false" ToolTip="Search">
+                                        <i class="bi bi-search"></i>
+                                    </asp:LinkButton>
+                                    <asp:TextBox ID="txtNavSearch" runat="server" CssClass="luma-search-input" placeholder="Search furniture & decor"></asp:TextBox>
+                                </div>
+                            </asp:Panel>
+                        </div>
+
+                        <!-- Action Icons: Profile, Wishlist, Bag with Badge Counter -->
+                        <div class="luma-actions">
+                            <!-- Profile Dropdown -->
+                            <div class="dropdown">
+                                <button type="button" class="luma-icon-btn border-0" data-bs-toggle="dropdown" aria-expanded="false" title="Account">
+                                    <i class="bi bi-person"></i>
+                                </button>
+                                
+                                <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0" style="border-radius: 12px; overflow: hidden; min-width: 280px; border: 1px solid #ECE7E1;">
+                                    <!-- Anonymous / Guest View -->
+                                    <asp:PlaceHolder ID="phAnonymous" runat="server">
+                                        <div class="myntra-profile-card p-4">
+                                            <div class="fw-bold fs-6 mb-1 text-dark">Welcome</div>
+                                            <p class="text-muted small mb-3">To access account and manage orders</p>
+                                            <a href='<%= ResolveUrl("~/Login.aspx") %>' class="btn btn-luxury-primary w-100 py-2 fw-semibold text-uppercase mb-2" style="font-size: 0.82rem; letter-spacing: 0.05em;">
+                                                Login / Sign Up
+                                            </a>
+                                            <hr class="dropdown-divider my-2">
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/Login.aspx?ReturnUrl=MyOrders.aspx") %>'>
+                                                <i class="bi bi-box-seam me-2"></i>Orders
+                                            </a>
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/Wishlist.aspx") %>'>
+                                                <i class="bi bi-heart me-2"></i>Wishlist
+                                            </a>
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/BookDesigner.aspx") %>'>
+                                                <i class="bi bi-calendar-check me-2"></i>Book Consultation
+                                            </a>
+                                        </div>
+                                    </asp:PlaceHolder>
+
+                                    <!-- Logged In User View -->
+                                    <asp:PlaceHolder ID="phLoggedIn" runat="server" Visible="false">
+                                        <div class="myntra-profile-card p-4">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; color: #2C2825; border: 1px solid #CBB29C;">
+                                                    <i class="bi bi-person-fill fs-5"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold text-dark fs-6">
+                                                        <asp:Literal ID="litUserName" runat="server"></asp:Literal>
+                                                    </div>
+                                                    <span class="badge" style="background-color: #F4F2EE; color: #A55B3E; font-size: 0.7rem;">Verified Member</span>
+                                                </div>
+                                            </div>
+                                            <hr class="dropdown-divider my-2">
+                                            <asp:PlaceHolder ID="phAdminLink" runat="server" Visible="false">
+                                                <a class="dropdown-item py-2 small text-primary fw-semibold" href='<%= ResolveUrl("~/Admin/Dashboard.aspx") %>'>
+                                                    <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+                                                </a>
+                                                <hr class="dropdown-divider my-2">
+                                            </asp:PlaceHolder>
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/Profile.aspx") %>'>
+                                                <i class="bi bi-person me-2"></i>My Profile
+                                            </a>
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/MyOrders.aspx") %>'>
+                                                <i class="bi bi-box-seam me-2"></i>Orders
+                                            </a>
+                                            <a class="dropdown-item py-2 small" href='<%= ResolveUrl("~/Wishlist.aspx") %>'>
+                                                <i class="bi bi-heart me-2"></i>Wishlist
+                                            </a>
+                                            <hr class="dropdown-divider my-2">
+                                            <a class="dropdown-item py-2 small text-danger fw-semibold" href='<%= ResolveUrl("~/Logout.aspx") %>'>
+                                                <i class="bi bi-box-arrow-right me-2"></i>Sign Out
+                                            </a>
+                                        </div>
+                                    </asp:PlaceHolder>
+                                </div>
+                            </div>
+
+                            <!-- Wishlist Button -->
+                            <a href='<%= ResolveUrl("~/Wishlist.aspx") %>' class="luma-icon-btn text-decoration-none" title="Wishlist">
+                                <i class="bi bi-heart"></i>
+                                <asp:Label ID="lblWishlistCount" runat="server" CssClass="luma-wish-badge" Text="0"></asp:Label>
+                            </a>
+
+                            <!-- Shopping Bag with Terracotta Circular Counter Badge (Reference Image 1) -->
+                            <a href='<%= ResolveUrl("~/Cart.aspx") %>' class="luma-icon-btn text-decoration-none" title="Shopping Bag">
+                                <i class="bi bi-bag"></i>
+                                <asp:Label ID="lblCartCount" runat="server" CssClass="luma-cart-badge" Text="0"></asp:Label>
+                            </a>
+                        </div>
+
+                        <!-- Mobile Hamburger Button -->
+                        <button class="navbar-toggler d-lg-none border-0 bg-transparent p-0 text-dark fs-2 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#lumaNavCollapse" aria-label="Toggle navigation">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Navigation Collapse Drawer with Expandable Sub-Categories (Inside container-fluid) -->
+                <div class="collapse navbar-collapse d-lg-none mt-2 pb-3" id="lumaNavCollapse">
+                    <div class="luma-search-pill w-100 my-3">
+                        <span class="luma-search-icon-btn"><i class="bi bi-search"></i></span>
+                        <asp:TextBox ID="txtMobileSearch" runat="server" CssClass="luma-search-input" placeholder="Search furniture & decor"></asp:TextBox>
+                    </div>
+
+                    <div class="luma-mobile-list">
+                        <!-- Home (with subcategories directly underneath!) -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobHome" role="button">
+                                <span>Home</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse show" id="mobHome">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Home.aspx") %>'>Home Page</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx") %>'>All Products</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=new") %>'>New Arrivals</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=bestseller") %>'>Best Sellers</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=trending") %>'>Trending Products</a>
+                                    <a class="luma-mobile-subcat-link sale-highlight" href='<%= ResolveUrl("~/Products.aspx?filter=sale") %>'>Sale</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Furniture -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobFurniture" role="button">
+                                <span>Furniture</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse" id="mobFurniture">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=sofa") %>'>Sofas</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=bed") %>'>Beds</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=wardrobe") %>'>Wardrobes</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=table") %>'>Tables</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=chair") %>'>Chairs</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=tv+unit") %>'>TV Units</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=bookshelf") %>'>Bookshelves</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lighting -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobLighting" role="button">
+                                <span>Lighting</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse" id="mobLighting">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=ceiling+light") %>'>Ceiling Lights</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=pendant+light") %>'>Pendant Lights</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=table+lamp") %>'>Table Lamps</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=floor+lamp") %>'>Floor Lamps</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=wall+light") %>'>Wall Lights</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decor -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobDecor" role="button">
+                                <span>Decor</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse" id="mobDecor">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=wall+art") %>'>Wall Art</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=vase") %>'>Vases</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=mirror") %>'>Mirrors</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=clock") %>'>Clocks</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=plant") %>'>Plants</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=decorative") %>'>Decorative Items</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rugs -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobRugs" role="button">
+                                <span>Rugs</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse" id="mobRugs">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=living+room+rug") %>'>Living Room Rugs</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=bedroom+rug") %>'>Bedroom Rugs</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=round+rug") %>'>Round Rugs</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=carpet") %>'>Carpet</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?q=door+mat") %>'>Door Mats</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sale -->
+                        <div class="luma-mobile-group">
+                            <div class="luma-mobile-cat-header" data-bs-toggle="collapse" data-bs-target="#mobSale" role="button">
+                                <span>Sale</span>
+                                <i class="bi bi-chevron-down"></i>
+                            </div>
+                            <div class="collapse" id="mobSale">
+                                <div class="luma-mobile-subcat-list">
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=offers") %>'>Special Offers</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=discount") %>'>Discount Products</a>
+                                    <a class="luma-mobile-subcat-link" href='<%= ResolveUrl("~/Products.aspx?filter=clearance") %>'>Clearance Sale</a>
+                                    <a class="luma-mobile-subcat-link sale-highlight" href='<%= ResolveUrl("~/Products.aspx?filter=deals") %>'>Best Deals</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Body Content -->
+        <main class="flex-grow-1">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <!-- Luxury Footer -->
+        <footer class="luxury-footer">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="brand-logo mb-3" style="color: var(--color-cream);">
+                            <span>Kriya ID</span>
+                            <span class="brand-badge">STUDIO</span>
+                        </div>
+                        <p style="color: var(--color-beige); font-size: 0.9rem; line-height: 1.7;">
+                            Kriya ID is a bespoke interior architecture and luxury furniture atelier. 
+                            We fuse minimalist aesthetics, organic textures, and artisanal craftsmanship 
+                            to elevate everyday spaces into living art.
+                        </p>
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="#" class="nav-icon-link" style="background: rgba(238,232,223,0.1); border-color: rgba(238,232,223,0.2); color: var(--color-cream);"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="nav-icon-link" style="background: rgba(238,232,223,0.1); border-color: rgba(238,232,223,0.2); color: var(--color-cream);"><i class="bi bi-pinterest"></i></a>
+                            <a href="#" class="nav-icon-link" style="background: rgba(238,232,223,0.1); border-color: rgba(238,232,223,0.2); color: var(--color-cream);"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 col-6">
+                        <h5 class="footer-heading">Collections</h5>
+                        <a href='<%= ResolveUrl("~/Products.aspx?cat=1") %>' class="footer-link">Living Room</a>
+                        <a href='<%= ResolveUrl("~/Products.aspx?cat=2") %>' class="footer-link">Bedroom Suites</a>
+                        <a href='<%= ResolveUrl("~/Products.aspx?cat=3") %>' class="footer-link">Kitchen & Dining</a>
+                        <a href='<%= ResolveUrl("~/Products.aspx?cat=4") %>' class="footer-link">Architectural Lighting</a>
+                        <a href='<%= ResolveUrl("~/Products.aspx?cat=5") %>' class="footer-link">Art & Handcrafted Decor</a>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 col-6">
+                        <h5 class="footer-heading">Client Services</h5>
+                        <a href='<%= ResolveUrl("~/BookDesigner.aspx") %>' class="footer-link">Book a Consultation</a>
+                        <a href='<%= ResolveUrl("~/MyOrders.aspx") %>' class="footer-link">Track Your Order</a>
+                        <a href='<%= ResolveUrl("~/Wishlist.aspx") %>' class="footer-link">Curated Wishlist</a>
+                        <a href='<%= ResolveUrl("~/Profile.aspx") %>' class="footer-link">Account Details</a>
+                        <a href='<%= ResolveUrl("~/Admin/AdminLogin.aspx") %>' class="footer-link">Admin Portal</a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="footer-heading">Design Atelier & Contact</h5>
+                        <p class="mb-2" style="color: var(--color-beige); font-size: 0.9rem;">
+                            <i class="bi bi-geo-alt me-2"></i>101, Luxury Boulevard, Design District, Bodakdev, Ahmedabad, Gujarat 380015
+                        </p>
+                        <p class="mb-2" style="color: var(--color-beige); font-size: 0.9rem;">
+                            <i class="bi bi-envelope me-2"></i>concierge@kriyaid.com
+                        </p>
+                        <p class="mb-3" style="color: var(--color-beige); font-size: 0.9rem;">
+                            <i class="bi bi-telephone me-2"></i>+91 (079) 4000-8800
+                        </p>
+                        <div class="p-3" style="background: rgba(238,232,223,0.06); border: 1px solid rgba(238,232,223,0.15); border-radius: 12px;">
+                            <span class="d-block fw-semibold" style="color: var(--color-cream); font-size: 0.85rem;">Studio Hours</span>
+                            <span style="color: var(--color-beige); font-size: 0.8rem;">Monday – Saturday: 10:00 AM – 8:00 PM IST</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+                    <div>
+                        © <%= DateTime.Now.Year %> Kriya ID Design Studio Pvt. Ltd. All rights reserved.
+                    </div>
+                    <div class="d-flex gap-3">
+                        <span style="color: var(--color-beige);">Privacy Policy</span>
+                        <span style="color: var(--color-beige);">Terms of Service</span>
+                        <span style="color: var(--color-beige);">White-Glove Delivery Policy</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+
+    <!-- Bootstrap 5 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='<%= ResolveUrl("~/Scripts/js/site.js") %>'></script>
+    <asp:ContentPlaceHolder ID="ScriptsContent" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>
