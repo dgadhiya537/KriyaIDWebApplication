@@ -1,0 +1,26 @@
+# =========================================================================
+# KRIYA ID - ASP.NET Web Forms (.NET Framework 4.8) .gitignore
+# =========================================================================
+
+# Existing rules: Visual Studio & Build Outputs
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# Visual Studio user-specific files & document states
+*.userosscache
+*.sln.docstates
+
+# Debug & Build symbol artifacts
+*.pdb
+
+# Local SQL Server Database binaries (recreatable via Database/KriyaID.sql)
+App_Data/*.mdf
+App_Data/*.ldf
+
+# Windows File Explorer temporary files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
